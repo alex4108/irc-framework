@@ -109,7 +109,7 @@ module.exports = class Connection extends EventEmitter {
             that.clearTimers();
 
             that.emit('socket close', err);
-
+            
             if (that.requested_disconnect || !that.auto_reconnect) {
                 should_reconnect = false;
 
@@ -124,6 +124,10 @@ module.exports = class Connection extends EventEmitter {
                 should_reconnect = false;
             }
 
+            that.debugOut('should_reconnect=' + should_reconnect + ", reconnect_attempts=" + that.reconnect_attempts + ", auto_reconnect_max_tries=" + that.auto_reconnect_max_tries);
+            
+            // Le graceful override
+            should_reconnect = true;
             if (should_reconnect) {
                 const reconnect_wait = that.calculateExponentialBackoff();
 
