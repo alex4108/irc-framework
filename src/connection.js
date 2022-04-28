@@ -15,7 +15,7 @@ module.exports = class Connection extends EventEmitter {
         this.connected = false;
         this.requested_disconnect = false;
 
-        this.reconnect_attempts = 0;
+        this.reconnect_attempts = options.reconnect_attempts || 0;
 
         // When an IRC connection was successfully registered.
         this.registered = false;
